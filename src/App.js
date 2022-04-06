@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react';//imports w/o ./ are from modules from the node modules folder
 import {Navbar, NavbarBrand} from 'reactstrap';//components
+import Directory from './components/DirectoryComponent'
 import './App.css';
 
 class App extends Component {
@@ -11,10 +12,11 @@ class App extends Component {
                   <NavbarBrand href="/">NuCamp</NavbarBrand>
               </div>
               </Navbar>
+              <Directory />
           </div>
       );
   }
 }
 
 
-export default App;
+export default App;//this is a module file because it has an export
