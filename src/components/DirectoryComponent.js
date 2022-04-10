@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import CampsiteInfo from './CampsiteInfoComponent';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
 
 class Directory extends Component {
@@ -39,29 +40,30 @@ class Directory extends Component {
         };   
     }
 
+        
         onCampsiteSelect(campsite) {
             //this method changes the value of the state (selectedCampsite property)
             this.setState({selectedCampsite: campsite});
             //prevents having to directly change state: this.state.selectedCampsite = campsite
         }
 
-        renderSelectedCampsite(campsite) {
-            //will either render a campsite; else, it'll render nothing(empty div)
-            if (campsite) {
-                return (
-                    <Card>
-                        <CardImg top src={campsite.image} alt={campsite.name} />
-                        <CardBody>
-                            <CardTitle>{campsite.name}</CardTitle>
-                            <CardText>{campsite.description}</CardText>
+        // renderSelectedCampsite(campsite) {
+        //     //will either render a campsite; else, it'll render nothing(empty div)
+        //     if (campsite) {
+        //         return (
+        //             <Card>
+        //                 <CardImg top src={campsite.image} alt={campsite.name} />
+        //                 <CardBody>
+        //                     <CardTitle>{campsite.name}</CardTitle>
+        //                     <CardText>{campsite.description}</CardText>
 
-                        </CardBody>
-                    </Card>
-                )
-            }
+        //                 </CardBody>
+        //             </Card>
+        //         )
+        //     }
 
-            return <div />
-        }
+        //     return <div />
+        // }
 
     render() {
         //changed this.state.campsites to this.props.campsites bc it no longer has state data but data is being passed down from parent component(App)
@@ -89,11 +91,14 @@ class Directory extends Component {
                 <div className="row">
                     {directory}
                 </div>
-                <div className='row'>
+
+                <CampsiteInfo campsite={this.state.selectedCampsite} />
+
+                {/* <div className='row'>
                     <div className="col-md-5 m-1">
                         {this.renderSelectedCampsite(this.state.selectedCampsite)}
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }
