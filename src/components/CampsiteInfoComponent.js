@@ -23,6 +23,9 @@ class CampsiteInfo extends Component {
     }
 
     renderComments(comments) {
+
+
+        
         if (comments) {
             return (
                 <div className="col-md-5 m-1">
@@ -31,7 +34,7 @@ class CampsiteInfo extends Component {
                         return (
                             <>
                                 <h5>{comment.text}</h5>
-                                <h6>{comment.author} + {""} + {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                <h6>--{comment.author} {""} {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
 </h6>
                             </>
                         )
@@ -45,7 +48,7 @@ class CampsiteInfo extends Component {
 
     render() {
         //doesnt need to be wrapped w/ {} because it's not inside JSX
-         return this.props.campsite ? (<div className="row">{this.renderCampsite(this.props.campsite)} + {" "} + {this.renderComments(this.props.campsite.comments)}</div>) : (<div></div>)
+         return this.props.campsite ? (<div className='container'><div className="row">{this.renderCampsite(this.props.campsite)} {" "}  {this.renderComments(this.props.campsite.comments)}</div> </div>) : (<div></div>)
         
     }
 }

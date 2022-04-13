@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import CampsiteInfo from './CampsiteInfoComponent';
-import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
+
+import {Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
 
 class Directory extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedCampsite: null
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+            
             // campsites: [
             //     {
             //         id: 0,
@@ -37,15 +37,11 @@ class Directory extends Component {
             //         description: "You'll never want to leave this hidden gem, deep within the lush Redux Woods."
             //     }
             // ]
-        };   
-    }
+        //};   
+    //}
 
         
-        onCampsiteSelect(campsite) {
-            //this method changes the value of the state (selectedCampsite property)
-            this.setState({selectedCampsite: campsite});
-            //prevents having to directly change state: this.state.selectedCampsite = campsite
-        }
+        
 
         // renderSelectedCampsite(campsite) {
         //     //will either render a campsite; else, it'll render nothing(empty div)
@@ -68,12 +64,11 @@ class Directory extends Component {
     render() {
         //changed this.state.campsites to this.props.campsites bc it no longer has state data but data is being passed down from parent component(App)
         const directory = this.props.campsites.map(campsite => {
+            
             return (
                 <div key={campsite.id} className="col-md-5 m-1">
-                    {/* campsite from props */}
-                    {/* this is set up so that when a card is clicked, the campsite gets set as selectedCampsite in the local state */}
-
-                    <Card onClick={() => this.onCampsiteSelect(campsite)}>
+                    
+                    <Card onClick={() => this.props.onClick(campsite.id)}>
                         <CardImg width="100%" src={campsite.image} alt={campsite.name} />
                         <CardImgOverlay>
                             <CardTitle>{campsite.name}</CardTitle>
@@ -92,7 +87,7 @@ class Directory extends Component {
                     {directory}
                 </div>
 
-                <CampsiteInfo campsite={this.state.selectedCampsite} />
+                
 
                 {/* <div className='row'>
                     <div className="col-md-5 m-1">
