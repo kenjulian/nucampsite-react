@@ -30,6 +30,7 @@ class Main extends Component {
               </div>
               </Navbar>
               <Directory campsites={this.state.campsites} onClick={campsiteId => this.onCampsiteSelect(campsiteId)}/>
+              {/* this.props.onClick is from the onClick props that was passed in, an onClick event that fires onCampsiteSelect  */}
               <CampsiteInfo campsite={this.state.campsites.filter(campsite => campsite.id === this.state.selectedCampsite)[0]} />
           </div>
       );
