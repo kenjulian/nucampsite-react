@@ -2,9 +2,9 @@ import React from 'react';
 import {Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
 
 // renders each card w/ different campsite details
-function RenderDirectoryItem({campsite, onClick}) {
+function RenderDirectoryItem({campsite}) {
     return (
-        <Card onClick={() => onClick(campsite.id)}>
+        <Card>
             <CardImg width="100%" src={campsite.image} alt={campsite.name} />
             <CardImgOverlay>
                 <CardTitle>{campsite.name}</CardTitle>
@@ -23,7 +23,7 @@ function Directory(props) {
             return (
                 <div key={campsite.id} className="col-md-5 m-1">
                     {/* props.onClick is from the onClick props that was passed in, an onClick event that fires onCampsiteSelect  */}
-                    <RenderDirectoryItem campsite={campsite} onClick={props.onClick} />
+                    <RenderDirectoryItem campsite={campsite} />
                     
                 </div>
             )
