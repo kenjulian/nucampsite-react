@@ -1,15 +1,20 @@
 import React from 'react';
 import {Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 // renders each card w/ different campsite details
 function RenderDirectoryItem({campsite}) {
     return (
         <Card>
-            <CardImg width="100%" src={campsite.image} alt={campsite.name} />
-            <CardImgOverlay>
-                <CardTitle>{campsite.name}</CardTitle>
+            <Link to={`/directory/${campsite.id}`}>
 
-            </CardImgOverlay>                   
+                <CardImg width="100%" src={campsite.image} alt={campsite.name} />
+                <CardImgOverlay>
+                    <CardTitle>{campsite.name}</CardTitle>
+
+                </CardImgOverlay>                   
+
+            </Link>
         </Card>
     )
 }

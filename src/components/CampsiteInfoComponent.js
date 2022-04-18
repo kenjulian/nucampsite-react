@@ -38,7 +38,7 @@ function RenderComments({comments}) {
 
 function CampsiteInfo(props) {
         //doesnt need to be wrapped w/ {} because it's not inside JSX
-         return props.campsite ? (<div className='container'><div className="row"><RenderCampsite campsite={props.campsite} /> {" "}  <RenderComments comments={props.campsite.comments} /></div> </div>) : (<div></div>)
+         return props.campsite ? (<div className='container'><div className="row"><RenderCampsite campsite={props.campsite} /> {" "}  <RenderComments comments={props.comments} /></div> </div>) : (<div></div>)
         
     }
 
