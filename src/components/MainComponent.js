@@ -5,6 +5,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {CAMPSITES} from '../shared/campsites';
 import { COMMENTS } from '../shared/comments';
@@ -45,7 +46,7 @@ class Main extends Component {
         return (
           <CampsiteInfo 
             campsite={this.state.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
-            comments={this.state.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)[0]} />
+            comments={this.state.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)} />
         );
       }
       return (
@@ -56,6 +57,7 @@ class Main extends Component {
                 {/* use render attribute when data needs to be passed, otherwise, component attribute will route it */}
                 <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} onClick={campsiteId => this.onCampsiteSelect(campsiteId)}/>} />
                 <Route path='/directory/:campsiteId' component={CampsiteWithId} />
+                <Route path='/aboutus' render={() => <About partners={this.state.partners} />} />
                 <Route exact path='/contactus' component={Contact} />
                 <Redirect to='/home' />
               </Switch>
