@@ -2,18 +2,26 @@ import React, {Component} from 'react';//imports w/o ./ are from modules from th
 
 import Main from './components/MainComponent';
 import { BrowserRouter } from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {ConfigureStore} from './redux/configureStore';
 import './App.css';
+
+//captures return value which is the redux store
+const store = ConfigureStore();
 
 
 class App extends Component {
     
   render() {
       return (
-        <BrowserRouter>
-          <div className="App">
-             <Main />
-          </div>
-        </BrowserRouter>
+        // makes redux store available to components that are children of App component using connect()
+        <Provider store={store}>
+          <BrowserRouter>
+            <div className="App">
+              <Main />
+            </div>
+          </BrowserRouter>
+        </Provider>
           
       );
   }
