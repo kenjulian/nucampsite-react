@@ -10,6 +10,6 @@ export const initialState = {
     promotions: PROMOTIONS
 }
 //default function parameter, if no state is passed in, use initialState
-const Reducer = (state = initialState, action) => {
+export const Reducer = (state = initialState, action) => {
     return state;
 };
