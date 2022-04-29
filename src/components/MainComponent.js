@@ -53,7 +53,7 @@ class Main extends Component {
               <Switch>
                 <Route path='/home' component={HomePage} />
                 {/* use render attribute when data needs to be passed, otherwise, component attribute will route it */}
-                <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} onClick={campsiteId => this.onCampsiteSelect(campsiteId)}/>} />
+                <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} onClick={campsiteId => this.onCampsiteSelect(campsiteId)}/>} />
                 <Route path='/directory/:campsiteId' component={CampsiteWithId} />
                 <Route path='/aboutus' render={() => <About partners={this.state.partners} />} />
                 <Route exact path='/contactus' component={Contact} />
