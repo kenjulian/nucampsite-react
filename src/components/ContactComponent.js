@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-//import {Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, FormFeedback} from 'reactstrap';
 import {Breadcrumb, BreadcrumbItem, Button, Label, Col, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors} from 'react-redux-form';
 
+//receives a string value from the inputs
 const required = val => val && val.length;//checks that theres an input value in a field; false if val is null/undefined...
 
 //if !val, then max length has not been exceeded OR if val's length is <= max length === true; else, false and error
@@ -175,7 +175,7 @@ class Contact extends Component {
                                         messages={{
                                             required: 'Required',
                                             minLength: 'Must be at least 2 characters',
-                                            maxLength: 'Must be at least 15 characters or less'
+                                            maxLength: 'Must be at max 15 characters or less'
                                         }}
                                     />
                                 </Col>

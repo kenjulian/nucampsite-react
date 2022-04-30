@@ -33,7 +33,10 @@ class Header extends Component {
         });
     }
 
+
+    //onSubmit, this executes with the submit event
     handleLogin(event) {
+        //console.log(event) event target is form
         alert(`Username: ${this.username.value} Password: ${this.password.value} Remember: ${this.remember.checked}`);
         this.toggleModal();
         event.preventDefault();
@@ -99,6 +102,7 @@ class Header extends Component {
                                 <Label htmlFor="username">Username</Label>
                                 <Input text="text" id="username" name="username" 
                                     innerRef={input => this.username = input} />
+                                    {/* value of input field is passed in, define a property name(this.username) */}
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="password">Password</Label>
