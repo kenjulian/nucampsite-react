@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchCampsites } from '../redux/ActionCreators';
 
 //gets state from redux and makes it accessible to Main component via props
 const mapStateToProps = state => {
@@ -22,11 +22,16 @@ const mapStateToProps = state => {
 
 //makes action creator function available as prop here in MainComponent
 const mapDispatchToProps = {
-  addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
+  addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)),
+  fetchCampsites: () => (fetchCampsites())
 };
 
 class Main extends Component {
-    
+    //built in react lifecycle method
+    //called after a component is inserted into the DOM; safe place to fetch data
+  componentDidMount() {
+      this.props.fetchCampsites();
+  }
 
   //onCampsiteSelect(campsiteId) {
         //this method changes the value of the state (selectedCampsite property)
@@ -39,7 +44,9 @@ class Main extends Component {
       const HomePage = () => {
           return (
               <Home 
-                campsite={this.props.campsites.filter(campsite => campsite.featured)[0]}
+                campsite={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
+                campsitesLoading={this.props.campsites.isLoading}
+                campsitesErrMess={this.props.campsites.errMess}
                 promotion={this.props.promotions.filter(promotion => promotion.featured)[0]}
                 partner={this.props.partners.filter(partner => partner.featured)[0]}
               />
@@ -49,8 +56,10 @@ class Main extends Component {
       const CampsiteWithId = ({match}) => {
         return (
           <CampsiteInfo 
-            campsite={this.props.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
+            campsite={this.props.campsites.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
             comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+            isLoading={this.props.campsites.isLoading}
+            errMess={this.props.campsites.errMess}
             addComment={this.props.addComment} />
         );
       }
