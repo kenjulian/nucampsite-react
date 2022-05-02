@@ -8,6 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addComment } from '../redux/ActionCreators';
 
 //gets state from redux and makes it accessible to Main component via props
 const mapStateToProps = state => {
@@ -18,6 +19,11 @@ const mapStateToProps = state => {
     promotions: state.promotions
   }
 }
+
+//makes action creator function available as prop here in MainComponent
+const mapDispatchToProps = {
+  addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
+};
 
 class Main extends Component {
     
@@ -44,7 +50,8 @@ class Main extends Component {
         return (
           <CampsiteInfo 
             campsite={this.props.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
-            comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)} />
+            comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+            addComment={this.props.addComment} />
         );
       }
       return (
@@ -69,4 +76,4 @@ class Main extends Component {
 
 //allows Main component to take its state from the redux store
 //wrap withRouter around our export so react router works with changes to export
-export default withRouter(connect(mapStateToProps)(Main));//this is a module file because it has an export
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));//this is a module file because it has an export
