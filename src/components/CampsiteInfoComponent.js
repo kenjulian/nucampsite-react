@@ -4,6 +4,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, Breadcrumb, Breadcru
 import { Link } from 'react-router-dom';
 import {Control, LocalForm, Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 
 //Validators: will be used via the validator attribute in the <Control.text> for the author field
@@ -28,7 +29,7 @@ function RenderCampsite({campsite}) {
         return (
             <div className="col-md-5 m-1">
                 <Card>
-                        <CardImg top src={campsite.image} alt={campsite.name} />
+                        <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
                         <CardBody>
                         <CardImgOverlay>
                             <CardText>{campsite.description}</CardText>

@@ -1,16 +1,21 @@
-import { COMMENTS } from "../shared/comments";
+
 import * as ActionTypes from './ActionTypes'
 
 //all reducers take 2 parameters:
     //previousState- state currently in the store thats set to be changed by this reducer
     //action object- reducer will take action type and update state accordingly
-export const Comments = (state= COMMENTS, action ) => {
+export const Comments = (state= {errMess: null, comments: []}, action ) => {
     switch(action.type) {
+        case ActionTypes.ADD_COMMENTS:
+            return {...state, errMess: null, comments: action.payload};
+        case ActionTypes.COMMENTS_FAILED:
+            return {...state, errMess: action.payload};
         case ActionTypes.ADD_COMMENT:
             const comment = action.payload;//this is the payload object from ADD_COMMENT
-            comment.id = state.length;
+            comment.id = state.comments.length;//can add more properties
             comment.date = new Date().toISOString();
-            return state.concat(comment);
+            //return state.concat(comment);//comment obj added to an array of existing comment objects
+            return {...state, comments: state.comments.concat(comment)};//updates current state
         default:
             return state;
     }
