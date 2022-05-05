@@ -12,8 +12,7 @@ export const Comments = (state= {errMess: null, comments: []}, action ) => {
             return {...state, errMess: action.payload};
         case ActionTypes.ADD_COMMENT:
             const comment = action.payload;//this is the payload object from ADD_COMMENT
-            comment.id = state.comments.length;//can add more properties
-            comment.date = new Date().toISOString();
+            
             //return state.concat(comment);//comment obj added to an array of existing comment objects
             return {...state, comments: state.comments.concat(comment)};//updates current state
         default:

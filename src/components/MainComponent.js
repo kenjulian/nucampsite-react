@@ -9,7 +9,7 @@ import About from './AboutComponent';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {actions} from 'react-redux-form';
-import { addComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';
+import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';
 
 
 //gets state from redux and makes it accessible to Main component via props
@@ -24,7 +24,7 @@ const mapStateToProps = state => {
 
 //makes action creator function available as prop here in MainComponent
 const mapDispatchToProps = {
-  addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)),
+  postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
   fetchCampsites: () => (fetchCampsites()),
   resetFeedbackForm: () => (actions.reset('feedbackForm')),
   fetchComments: () => (fetchComments()),//these action creatotrs return an action obj with property type and payLoad
@@ -71,7 +71,7 @@ class Main extends Component {
             isLoading={this.props.campsites.isLoading}
             errMess={this.props.campsites.errMess}
             commentsErrMess={this.props.comments.errMess}
-            addComment={this.props.addComment} />
+            postComment={this.props.postComment} />
         );
       }
       return (
