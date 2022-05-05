@@ -19,8 +19,23 @@ export const fetchCampsites = () => dispatch => {
     dispatch(campsitesLoading());
 
     return fetch(baseUrl + 'campsites')
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {//caught by catch block below; server gave a bad response such as a 404
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`)
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {//rejected promise, no response from the server at all
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+            )
             .then(response => response.json())//if fetch is successful it converts json data to js object
-            .then(campsites => dispatch(addCampsites(campsites)));//dispatch addCampsites w/ js obj(campsites)
+            .then(campsites => dispatch(addCampsites(campsites)))//dispatch addCampsites w/ js obj(campsites)
+            .catch(error => dispatch(campsitesFailed(error.message)));//catches throw
 };
 
 //this is not a thunk; it's not being intercepted, this will go straight to the reducer
@@ -40,10 +55,26 @@ export const addCampsites = campsites => ({
 });
 
 export const fetchComments = () => dispatch => {
+
     return fetch(baseUrl + 'comments')//send fetch request to json server which is runnning at the address stored in baseUrl
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {//caught by catch block below; server gave a bad response such as a 404
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`)
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {//rejected promise, no response from the server at all
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+            )
             .then(response => response.json())
             .then(comments => dispatch(addComment(comments)))
-            //goes through the reducer to be dispatched at to the store
+            .catch(error => dispatch(commentsFailed(error.message)));
+            //goes through the reducer to be dispatched to the store
             //in the reducer, if action type is addComment it will {...state, fetched comment payload}
 };
  export const commentsFailed = errMess => ({
@@ -63,8 +94,23 @@ export const fetchComments = () => dispatch => {
     dispatch(promotionsLoading());
 
     return fetch(baseUrl + 'promotions')
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {//caught by catch block below; server gave a bad response such as a 404
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`)
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {//rejected promise, no response from the server at all
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+            )
             .then(response => response.json())//if fetch is successful it converts json data to js object
-            .then(promotions => dispatch(addPromotions(promotions)));//dispatch addCampsites w/ js obj(campsites)
+            .then(promotions => dispatch(addPromotions(promotions)))//dispatch addCampsites w/ js obj(campsites)
+            .catch(error => dispatch(promotionsFailed(error.message)))
 };
 
 export const promotionsLoading = () => ({
