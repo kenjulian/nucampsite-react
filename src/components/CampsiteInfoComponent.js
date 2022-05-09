@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import {Control, LocalForm, Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
+import {FadeTransform, Fade, Stagger} from 'react-animation-components';
 
 
 //Validators: will be used via the validator attribute in the <Control.text> for the author field
@@ -28,14 +29,16 @@ const isNumber = val => !isNaN(+val );
 function RenderCampsite({campsite}) {
         return (
             <div className="col-md-5 m-1">
-                <Card>
-                        <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
-                        <CardBody>
-                        <CardImgOverlay>
-                            <CardText>{campsite.description}</CardText>
-                        </CardImgOverlay>
-                        </CardBody>
-                </Card>
+                <FadeTransform in transformProps={{exitTransform: 'scale(0.5) translateY(-50%)'}}>
+                    <Card>
+                            <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
+                            <CardBody>
+                            <CardImgOverlay>
+                                <CardText>{campsite.description}</CardText>
+                            </CardImgOverlay>
+                            </CardBody>
+                    </Card>
+                </FadeTransform>
             </div>
         )
     }
@@ -47,15 +50,24 @@ function RenderComments({comments, postComment, campsiteId}) {
                 
                     <div className="col-md-5 m-1">
                         <h4>Comments</h4>
-                        {comments.map(comment => {
-                            return (
-                                <>
-                                    <h5>{comment.text}</h5>
-                                    <h6>--{comment.author} {""} {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-    </h6>
-                                </>
-                            )
-                        })}
+                        {/* used ina group of components */}
+                        <Stagger in>
+                                {
+                                comments.map(comment => {
+                                    return (
+                                        // key must go in top most element
+                                        <Fade in key={comment.id}>
+                                            <div>
+                                                <p>
+                                                    {comment.text}<br />
+                                                    -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                                </p>
+                                            </div>
+                                        </Fade>
+                                    );
+                                })
+                            }
+                        </Stagger>
                     </div>
                     <CommentForm campsiteId={campsiteId} postComment={postComment}/>
                 </>
