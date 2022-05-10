@@ -6,13 +6,14 @@ import { baseUrl } from '../shared/baseUrl';//linked json server via localhost/3
 
 //This is a GET req to the server
 //redux thunk enables this syntax bc its a middleware
+//fetch thunk function updates the redxu store w/ the fetched data
 export const fetchCampsites = () => dispatch => {
     //occuring after dispatch and before it reaches the reducer
     dispatch(campsitesLoading());
 
     return fetch(baseUrl + 'campsites')
             .then(response => {
-                if (response.ok) {
+                if (response.ok) {//returns true if response is successful(status code 200-299)
                     return response;
                 } else {//caught by catch block below; server gave a bad response such as a 404
                     const error = new Error(`Error ${response.status}: ${response.statusText}`)
@@ -137,16 +138,20 @@ export const fetchComments = () => dispatch => {
     dispatch(promotionsLoading());
 
     return fetch(baseUrl + 'promotions')
-            //the fetchedd data going through the .thens will be promotions 
+            //the fetched data going through the .thens will be promotions 
             .then(response => {
                 if (response.ok) {
+                    console.log(response);
                     return response;
                 } else {//caught by catch block below; server gave a bad response such as a 404
+                    //response.status is a number value (ok, not found, etc...)
+                    //response.statusText is a status message corresponding with response.status
                     const error = new Error(`Error ${response.status}: ${response.statusText}`)
                     error.response = response;
                     throw error;
                 }
             },
+            //separate error case for if there is no response to go through the .then above (no fetched data)
             error => {//rejected promise, no response from the server at all
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -171,3 +176,50 @@ export const addPromotions = promotions => ({
     type: ActionTypes.ADD_PROMOTIONS,
     payload: promotions
 });
+
+//PARTNERS:
+
+//this is GET request to the json-server and update the Redux store w/ fetched data
+export const fetchPartners = () => dispatch => {
+
+    dispatch(partnersLoading());
+
+    return fetch(baseUrl + 'partners')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}`)
+                error.response;
+                throw error;
+
+            }
+        },
+        error => {
+            const errMess = new Error(error.message);
+            throw errMess;
+
+        }
+        )
+        .then(response => response.json())
+        .then(partners => dispatch(addPartners(partners)))
+        .catch(error => dispatch(partnersFailed(error.message)))
+};
+
+export const addPartners = partners => ({
+    type: ActionTypes.ADD_PARTNERS,
+    payload: partners
+})
+
+export const partnersLoading = () => ({
+    type: ActionTypes.PARTNERS_LOADING
+
+});
+
+export const partnersFailed = errMess => ({
+    type: ActionTypes.PARTNERS_FAILED,
+    payload: errMess
+});
+
+
+

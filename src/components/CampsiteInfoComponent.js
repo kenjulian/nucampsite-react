@@ -24,7 +24,7 @@ const maxLength = len => val => !val || (val.length <= len);
 //len will be passed in as a number when minLength is called; it represents what the min characters should be
 const minLength = len => val => val && (val.length >= len);
 
-const isNumber = val => !isNaN(+val );
+//const isNumber = val => !isNaN(+val );
 
 function RenderCampsite({campsite}) {
         return (
