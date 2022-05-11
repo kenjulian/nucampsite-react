@@ -50,6 +50,7 @@ export const addCampsites = campsites => ({
 
 //COMMENTS:
 
+//Thunked action creator: fetches from the server
 //This is a GET req to the server
 export const fetchComments = () => dispatch => {
 
@@ -74,6 +75,8 @@ export const fetchComments = () => dispatch => {
             //goes through the reducer to be dispatched to the store
             //in the reducer, if action type is addComment it will {...state, fetched comment payload}
 };
+
+//Regular action creators: from the actionTypes
  export const commentsFailed = errMess => ({
      type:ActionTypes.COMMENTS_FAILED,
      payload: errMess
@@ -132,6 +135,7 @@ export const fetchComments = () => dispatch => {
 
  //PROMOTIONS:
 
+ //Thunked action creator: this is GET request to the json-server and update the Redux store w/ fetched data
  //this is a GET req to the server
  export const fetchPromotions = () => dispatch => {
     //occuring after dispatch and before it reaches the reducer
@@ -162,6 +166,7 @@ export const fetchComments = () => dispatch => {
             .catch(error => dispatch(promotionsFailed(error.message)))
 };
 
+//Regular action creators: from the actionTypes
 export const promotionsLoading = () => ({
     //no payload here
     type:ActionTypes.PROMOTIONS_LOADING
@@ -179,7 +184,8 @@ export const addPromotions = promotions => ({
 
 //PARTNERS:
 
-//this is GET request to the json-server and update the Redux store w/ fetched data
+
+//Thunked action creator: this is GET request to the json-server and update the Redux store w/ fetched data
 export const fetchPartners = () => dispatch => {
 
     dispatch(partnersLoading());
@@ -206,6 +212,7 @@ export const fetchPartners = () => dispatch => {
         .catch(error => dispatch(partnersFailed(error.message)))
 };
 
+//Regular action creators: from the actionTypes
 export const addPartners = partners => ({
     type: ActionTypes.ADD_PARTNERS,
     payload: partners

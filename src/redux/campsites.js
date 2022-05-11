@@ -2,6 +2,8 @@
 //are now receiving campsites data from the action and not the module
 import * as ActionTypes from './ActionTypes';
 
+
+
 //all reducers take 2 parameters:
     //previousState- state currently in the store thats set to be changed by this reducer
     //action object- reducer will take action type and update state accordingly
